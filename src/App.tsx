@@ -1,24 +1,14 @@
 import { useState } from "react";
-import Canvas from "./components/Canvas";
 import './App.css';
-import Menu from "./components/Menu";
-import GameContext, { defaultGameState } from "./utils/GameContext";
-import Slider from "./components/Slider";
-import CheckBox from "./components/CheckBox";
-import { HexColorPicker } from "react-colorful";
 import { Astra } from "./utils/Astra";
+import AstraContext from "./utils/AstraContext";
+import GameView from "./components/GameView/GameView";
+import UserInterface from "./components/UserInterface/UserInterface";
 
 function App() {
 
-  console.log('render')
-
-  const [pause, setPause] = useState<boolean>(defaultGameState.pause);
-  const [mass, setMass] = useState<number>(defaultGameState.mass);
-  const [radius, setRadius] = useState<number>(defaultGameState.radius);
-  const [fixed, setFixed] = useState<boolean>(defaultGameState.fixed);
-  const [color, setColor] = useState<string>(defaultGameState.color);
-
-  const [astras, setAstras] = useState<Astra[]>(defaultGameState.astras);
+  const [pause, setPause] = useState<boolean>(false);
+  const [astras, setAstras] = useState<Astra[]>([]);
 
   const removeAstra = (astra: Astra) => {
     let index = astras.findIndex((value) => value === astra);
@@ -82,59 +72,16 @@ function App() {
     setPause(!pause);
   }
 
-  const toggleFixed = () => {
-    setFixed(!fixed);
-  }
-
-  const handleMassChange = (newMass: number) => {
-    setMass(newMass);
-  }
-
-  const handleRadiusChange = (newRadius: number) => {
-    setRadius(newRadius);
-  }
-
-  const handleColorChange = (newColor: string) => {
-    setColor(newColor);
-  }
-
-  const handleReset = () => {
-    setAstras([]);
-  }
-
   return (
-    <GameContext.Provider value={{
-      pause: pause,
-      mass: mass,
-      radius: radius,
-      color: color,
-      fixed: fixed,
+    <AstraContext.Provider value={{
       astras: astras,
+      pause: pause,
+      setAstras: setAstras,
       togglePause: togglePause,
-      toggleFixed: toggleFixed,
-      setMass: handleMassChange,
-      setColor: handleColorChange,
-      setRadius: handleRadiusChange,
-      setAstras: setAstras
     }}>
-      <Menu>
-        <div className="navigation">
-          <div className="navigation-main">
-            <h1>Gravitax</h1>
-            <Slider label="mass" min={1} max={50} value={mass} onChange={e => handleMassChange(e.x)} />
-            <Slider label="radius" min={1} max={50} value={radius} onChange={e => handleRadiusChange(e.x)} />
-            <HexColorPicker color={color} onChange={handleColorChange}/>
-            <CheckBox label="fixed" value={fixed} onChange={toggleFixed} />
-            <button style={{ pointerEvents: 'all' }} onClick={handleReset}>reset</button>
-            <button style={{pointerEvents: 'all'}} onClick={togglePause}>{pause ? 'play' : 'pause'}</button>
-          </div>
-          <div className="navigation-footer">
-            <span>Made by Anddy Labrut</span>
-          </div>
-        </div>
-      </Menu>
-      <Canvas style={{ width: '100%', height: '100%', background: '#000000' }} draw={draw} />
-    </GameContext.Provider>
+      <GameView style={{ width: '100%', height: '100%', background: '#000000'}} draw={draw}/>
+      <UserInterface/>
+    </AstraContext.Provider>
   );
 }
 

@@ -1,7 +1,7 @@
 import { motion, useCycle } from 'framer-motion';
 import { useLayoutEffect, useRef, useState } from 'react';
-import MenuToggle from './MenuToggle';
-import './Menu.css';
+import MenuToggle from '../MenuToggle/MenuToggle';
+import './style.css';
 
 interface MenuProps {
     children?: React.ReactNode;
@@ -47,9 +47,6 @@ const Menu: React.FC<MenuProps> = ({ children }) => {
             ref={containerRef}
         >
             <motion.div className='background' variants={sidebar}>
-                {/* <div className='navigation'>
-                    {children}
-                </div> */}
                 {children}
             </motion.div>
             

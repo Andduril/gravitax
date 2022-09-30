@@ -1,4 +1,4 @@
-import Path from "./Path";
+import Path from "../Path/Path";
 
 interface MenuToggleProps {
     toggle: () => void;
