@@ -4,18 +4,27 @@ import AstraContext from "../utils/AstraContext";
 import GameContext from "../utils/GameContext";
 
 const useGame = () => {
-    const astras = useContext(AstraContext);
+    const astrasStatus = useContext(AstraContext);
     const gameStatus = useContext(GameContext);
 
     const addAstra = (x: number, y: number, vx: number, vy: number) => {
-        astras.setAstras([...astras.astras, new Astra(x, y, gameStatus.fixed, gameStatus.mass, gameStatus.color, gameStatus.radius, vx, vy)]);
-    }
+        astrasStatus.setAstras([...astrasStatus.astras, new Astra(x, y, gameStatus.fixed, gameStatus.mass, gameStatus.color, gameStatus.radius, vx, vy, gameStatus.name)]);
+    };
+
+    const removeAstra = (astra: Astra) => {
+        let astras = astrasStatus.astras.filter((value) => value !== astra);
+        astrasStatus.setAstras(astras);
+    };
 
     const reset = () => {
-        astras.setAstras([]);
-    }
+        astrasStatus.setAstras([]);
+    };
 
-    return {addAstra, reset};
+    const togglePause = () => {
+        astrasStatus.togglePause();
+    };
+
+    return {addAstra, reset, togglePause, removeAstra};
 };
 
 export default useGame;

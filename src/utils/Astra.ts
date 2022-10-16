@@ -1,4 +1,5 @@
 export class Astra {
+    name: string;
     mass: number;
     x: number;
     y: number;
@@ -8,7 +9,8 @@ export class Astra {
     radius: number;
     fixed: boolean;
 
-    constructor(x: number, y: number, fixed: boolean, mass: number, color: string, radius: number, vx: number, vy: number) {
+    constructor(x: number, y: number, fixed: boolean, mass: number, color: string, radius: number, vx: number, vy: number, name: string) {
+        this.name = name;
         this.mass = mass;
         this.x = x;
         this.y = y;

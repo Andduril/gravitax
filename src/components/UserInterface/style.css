@@ -2,13 +2,15 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.navigation-main {
     pointer-events: all;
 }
+
+/* .navigation-main {
+    pointer-events: all;
+} */
 
 .navigation-footer {
     position: absolute;
@@ -21,4 +23,38 @@
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+.navigation-title {
+    position: absolute;
+    margin: 0;
+    top: 18px;
+    color: white;
+    font-size: 40px;
+}
+
+.creator-options::after {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "";
+    width: 90%;
+    height: 3px;
+    background: rgb(145, 143, 143);
+}
+
+.display-options {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.controls-btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    width: 50px;
+    height: 50px;
 }
